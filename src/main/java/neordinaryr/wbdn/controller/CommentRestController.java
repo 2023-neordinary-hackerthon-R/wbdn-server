@@ -44,8 +44,7 @@ public class CommentRestController {
     /* Comment 관련 엔드포인트 */
     @Operation(summary = "댓글 작성", description = "댓글을 작성합니다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "댓글 작성 성공",
-                    content = @Content(schema = @Schema(implementation = CommentResponseDto.SaveCommentDto.class))),
+            @ApiResponse(responseCode = "201", description = "댓글 작성 성공"),
             @ApiResponse(responseCode = "400", description = "댓글 작성 실패")
     })
     @Parameter(name = "postId", description = "게시글 ID", required = true)
