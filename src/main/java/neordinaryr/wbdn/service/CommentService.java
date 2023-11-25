@@ -1,7 +1,6 @@
 package neordinaryr.wbdn.service;
 
 import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.converter.CommentConverter;
 import neordinaryr.wbdn.domain.Comment;
