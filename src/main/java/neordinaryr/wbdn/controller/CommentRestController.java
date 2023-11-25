@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentRestController {
     private final CommentService commentService;
     private final ReplyService replyService;
+//    private final PostService postService;
 
     /* Comment 관련 엔드포인트 */
     @PostMapping("/posts/{postId}/comments")
@@ -41,6 +42,13 @@ public class CommentRestController {
                                                         Member member) {
         Comment comment = commentService.save(postId, dto, member);
         return BaseResponse.onSuccess(SuccessCode.SUCCESS_CREATED, CommentConverter.toSaveCommentDto(comment));
+    }
+
+    @GetMapping("/posts/{postId}/comments")
+    public BaseResponse<CommentResponseDto.GetCommentsDto> getComments(@PathVariable("postId") Long postId) {
+//        List<Comment> comments = postService.findCommentsById(postId);
+        List<Comment> comments = null;
+        return BaseResponse.onSuccess(SuccessCode.SUCCESS_OK, CommentConverter.toGetCommentsDto(comments));
     }
 
     @DeleteMapping("/comments/{commentId}")
