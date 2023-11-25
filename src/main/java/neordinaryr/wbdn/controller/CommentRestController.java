@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentRestController {
     private final CommentService commentService;
     private final ReplyService replyService;
-//    private final PostService postService;
 
     /* Comment 관련 엔드포인트 */
     @Operation(summary = "댓글 작성", description = "댓글을 작성합니다.")
@@ -70,8 +69,7 @@ public class CommentRestController {
             schema = @Schema(implementation = CommentResponseDto.GetCommentsDto.class))
     @GetMapping("/posts/{postId}/comments")
     public BaseResponse<CommentResponseDto.GetCommentsDto> getComments(@PathVariable("postId") Long postId) {
-//        List<Comment> comments = postService.findCommentsById(postId);
-        List<Comment> comments = null;
+        List<Comment> comments = commentService.findCommentsByPostId(postId);
         return BaseResponse.onSuccess(SuccessCode.SUCCESS_OK, CommentConverter.toGetCommentsDto(comments));
     }
 
