@@ -15,17 +15,16 @@ import neordinaryr.wbdn.domain.common.BaseEntity;
 public class Member extends BaseEntity {
 
     @Id
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_id;
+    private Long id;
 
     @Column(nullable = false,length = 20, unique = true)
-    private String login_id;
+    private String loginId;
 
     @Column(nullable = false)
-    @Lob
     private String password;
 
     @Column(nullable = false, length = 20, unique = true)
     private String nickname;
-
 }

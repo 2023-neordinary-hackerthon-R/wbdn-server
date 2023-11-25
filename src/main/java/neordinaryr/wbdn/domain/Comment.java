@@ -14,12 +14,13 @@ import neordinaryr.wbdn.domain.common.BaseEntity;
 public class Comment extends BaseEntity {
 
     @Id
+    @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_id;
+    private Long id;
 
     @Lob
     @Column(nullable = false)
-    private String comment;
+    private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id", referencedColumnName = "member_id")

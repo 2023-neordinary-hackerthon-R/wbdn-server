@@ -9,13 +9,14 @@ import neordinaryr.wbdn.domain.common.BaseEntity;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="Like")
-@Table(name="like")
+@Entity(name="PostLike")
+@Table(name="post_like")
 public class PostLike extends BaseEntity {
 
     @Id
+    @Column(name = "like_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long like_id;
+    public Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="post_id", referencedColumnName = "post_id")
