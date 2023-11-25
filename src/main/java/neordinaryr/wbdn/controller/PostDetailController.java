@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class PostDetailController {
 
-    private PostDetailService postDetailService;
+    private final PostDetailService postDetailService;
 
     // post 전체 조회
     @Operation(summary = "post 리스트 전체 조회(추천순)", description = "메인화면 api")
