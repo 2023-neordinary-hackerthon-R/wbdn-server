@@ -1,5 +1,6 @@
 package neordinaryr.wbdn.domain.dto.response;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,13 +22,15 @@ public class MyPageResponseDto {
     @Builder
     @AllArgsConstructor
     public static class GetMyPagePostsDto {
-
+        private List<GetMyPagePostDto> postList;
     }
 
     @Getter
     @Builder
     @AllArgsConstructor
     public static class GetMyPagePostDto {
-
+        private Long postId;
+        private String photoUrl;
+        private Long likes;
     }
 }

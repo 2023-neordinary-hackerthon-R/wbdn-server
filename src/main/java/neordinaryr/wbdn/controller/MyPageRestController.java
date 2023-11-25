@@ -24,4 +24,9 @@ public class MyPageRestController {
         return BaseResponse.onSuccess(SuccessCode.SUCCESS_OK, MyPageConverter.toGetMyPageDto(member));
     }
 
+    @GetMapping("/posts")
+    public BaseResponse<MyPageResponseDto.GetMyPagePostsDto> getMyPagePosts(@Parameter(hidden = true) Member member) {
+        return BaseResponse.onSuccess(SuccessCode.SUCCESS_OK, MyPageConverter.toGetMyPagePostsDto(member));
+    }
+
 }
