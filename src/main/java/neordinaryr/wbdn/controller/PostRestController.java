@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,17 +61,36 @@ public class PostRestController {
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(null));
     }
 
+//    @Operation(summary = "게시글 지도 조회 API", description = "지도에서 게시글 조회합니다.")
+//    @ApiResponse(responseCode = "200")
+//    @GetMapping("/maps")
+//    public ResponseEntity<BaseResponse<List<PostListMapDto>>> getPostsOnMap(
+//        @Parameter(name = "currentLat", description = "현재 위치 위도") @RequestParam(name = "currentLat") Double currentLat,
+//        @Parameter(name = "currentLon", description = "현재 위도 경도") @RequestParam(name = "currentLon") Double currentLon,
+//        @Parameter(name = "upperRightLat", description = "우상단 위도") @RequestParam(name = "upperRightLat") Double upperRightLat,
+//        @Parameter(name = "upperRightLon", description = "우상단 경도") @RequestParam(name = "upperRightLon") Double upperRightLon) {
+//
+//        List<PostListMapDto> result = postService.getPostsOnMap(currentLat, currentLon, upperRightLat, upperRightLon);
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(result));
+//    }
+
     @Operation(summary = "게시글 지도 조회 API", description = "지도에서 게시글 조회합니다.")
     @ApiResponse(responseCode = "200")
     @GetMapping("/maps")
-    public ResponseEntity<BaseResponse<List<PostListMapDto>>> getPostsOnMap(
-        @Parameter(name = "currentLat", description = "현재 위치 위도") @RequestParam(name = "currentLat") Double currentLat,
-        @Parameter(name = "currentLon", description = "현재 위도 경도") @RequestParam(name = "currentLon") Double currentLon,
-        @Parameter(name = "upperRightLat", description = "우상단 위도") @RequestParam(name = "upperRightLat") Double upperRightLat,
-        @Parameter(name = "upperRightLon", description = "우상단 경도") @RequestParam(name = "upperRightLon") Double upperRightLon) {
+    public ResponseEntity<BaseResponse<List<PostListMapDto>>> getPostsOnMap() {
+        List<Post> posts = postService.getPostsOnMapTemp();
 
-        List<PostListMapDto> result = postService.getPostsOnMap(currentLat, currentLon, upperRightLat, upperRightLon);
+        List<PostListMapDto> dto = posts.stream().map(
+                                            post -> PostListMapDto.builder()
+                                                                  .postId(post.getId())
+                                                                  .photoUrl(post.getPhoto().getPhotoUrl())
+                                                                  .likes(post.getLikes())
+                                                                  .latitude(post.getLatitude())
+                                                                  .longitude(post.getLongitude())
+                                                                  .nickname(post.getMember().getNickname()).build())
+                                        .toList();
 
-        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(result));
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(dto));
     }
 }
