@@ -35,7 +35,7 @@ public class PostLikeController {
     })
     @Parameter(name = "postId", description = "post 아이디")
     @PostMapping("/{postId}/likes")
-    public BaseResponse<PostLikeResDto> saveLike (@PathVariable Long postId, @Parameter(hidden = true) @ExtractMember Member member) { // postId랑 member 받기
+    public BaseResponse<PostLikeResDto> saveLike (@PathVariable("postId") Long postId, @Parameter(hidden = true) @ExtractMember Member member) { // postId랑 member 받기
         PostLikeResDto res = postLikeServcie.saveLike(postId, member);
         return BaseResponse.onSuccess(res);
     }

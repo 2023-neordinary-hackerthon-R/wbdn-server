@@ -47,7 +47,7 @@ public class PostDetailController {
     })
     @Parameter(name = "postId", description = "post 아이디")
     @GetMapping("/posts/{postId}")
-    public BaseResponse<PostDetailResDto> findPostDetail(@PathVariable Long postId, @Parameter(hidden = true) @ExtractMember Member member) { // 멤버, postId 필요
+    public BaseResponse<PostDetailResDto> findPostDetail(@PathVariable("postId") Long postId, @Parameter(hidden = true) @ExtractMember Member member) { // 멤버, postId 필요
         PostDetailResDto res = postDetailService.findPostDetail(postId, member);
         return BaseResponse.onSuccess(res);
     }
