@@ -48,7 +48,8 @@ public enum ErrorCode implements BaseCode {
     // POST 관련
     FILE_NOT_EXISTS(HttpStatus.BAD_REQUEST, "POST_001", "게시글 사진이 없습니다."),
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_002", "해당 게시글이 존재하지 않습니다."),
-    POST_NOT_OWNER(HttpStatus.FORBIDDEN, "POST_003", "게시글 소유자가 아닙니다.");
+    POST_NOT_OWNER(HttpStatus.FORBIDDEN, "POST_003", "게시글 소유자가 아닙니다."),
+    ALREADY_LIKED(HttpStatus.CONFLICT, "POST_004", "이미 좋아요를 누른 게시글 입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

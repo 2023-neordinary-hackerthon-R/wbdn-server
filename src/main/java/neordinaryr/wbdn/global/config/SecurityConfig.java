@@ -1,4 +1,4 @@
-package neordinaryr.wbdn;
+package neordinaryr.wbdn.global.config;
 
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.security.JwtRequestFilter;
@@ -20,8 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(
-        securedEnabled = true,
-        jsr250Enabled = true
+    securedEnabled = true,
+    jsr250Enabled = true
 )
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -33,7 +33,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer configure() {
         return web -> web.ignoring()
-                .requestMatchers("/error", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**");
+                         .requestMatchers("/error", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**");
     }
 
     @Bean
@@ -47,21 +47,21 @@ public class SecurityConfig {
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(
-                SessionCreationPolicy.STATELESS));
+            SessionCreationPolicy.STATELESS));
 
         http.exceptionHandling((exceptionHandling) -> exceptionHandling
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .accessDeniedHandler(jwtAccessDeniedHandler)
         );
 
         http.authorizeHttpRequests(
-                (authorize) -> authorize
-                        .requestMatchers("api/sign-in")
-                        .permitAll()
-                        .requestMatchers("api/sign-up")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
+            (authorize) -> authorize
+                .requestMatchers("api/sign-in")
+                .permitAll()
+                .requestMatchers("api/sign-up")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
         );
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

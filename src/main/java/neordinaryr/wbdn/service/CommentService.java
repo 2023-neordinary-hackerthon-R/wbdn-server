@@ -11,6 +11,7 @@ import neordinaryr.wbdn.domain.dto.request.CommentRequestDto;
 import neordinaryr.wbdn.global.apiPayload.ErrorCode;
 import neordinaryr.wbdn.global.exception.BaseException;
 import neordinaryr.wbdn.repository.CommentRepository;
+import neordinaryr.wbdn.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,15 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-//    private final PostService postService;
+    private final PostRepository postRepository;
+    private final PostService postService;
 
     @Transactional
     public Comment save(Long postId, CommentRequestDto.SaveCommentDto dto, Member member) {
         Comment comment = CommentConverter.toComment(dto);
         comment.setMember(member);
 
-        // TODO: Post post = postService.findById(postId)로 대체
-        Post post = new Post();
+        Post post = postRepository.findById(postId).orElseThrow(() -> BaseException.of(ErrorCode.POST_NOT_FOUND));
         comment.setPost(post);
 
         return commentRepository.save(comment);
@@ -50,6 +51,11 @@ public class CommentService {
     public Comment findById(long commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> BaseException.of(ErrorCode.NO_SUCH_COMMENT_ERROR));
+    }
+
+    public List<Comment> findCommentsByPostId(long postId) {
+        Post findPost = postRepository.findById(postId).orElseThrow(() -> BaseException.of(ErrorCode.POST_NOT_FOUND));
+        return findPost.getComments();
     }
 
     public List<Reply> findRepliesById(long commentId) {
