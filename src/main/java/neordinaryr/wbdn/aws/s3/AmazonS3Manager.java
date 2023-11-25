@@ -4,6 +4,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.global.apiPayload.ErrorCode;
 import neordinaryr.wbdn.global.config.AmazonConfig;
@@ -42,4 +44,19 @@ public class AmazonS3Manager {
         return amazonConfig.getUserProfileImage() + '/' + fileName;
     }
 
+    public String getKeyName(String fileUrl) {
+        Pattern regex = Pattern.compile(getPattern());
+        Matcher matcher = regex.matcher(fileUrl);
+
+        String keyName = null;
+        if (matcher.find()) {
+            keyName = matcher.group(1);
+        }
+
+        return keyName;
+    }
+
+    private String getPattern() {
+        return "https://" + amazonConfig.getBucket() + "\\.s3\\." + amazonConfig.getRegion() + "\\.amazonaws\\.com(.*)";
+    }
 }
