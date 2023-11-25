@@ -2,6 +2,8 @@ package neordinaryr.wbdn.domain;
 
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import neordinaryr.wbdn.domain.common.BaseEntity;
 
@@ -27,4 +29,7 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false, length = 20, unique = true)
     private String nickname;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
 }

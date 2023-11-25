@@ -24,6 +24,7 @@ public class ReplyResponseDto {
     @AllArgsConstructor
     public static class GetReplyDto {
         Long replyId;
+        String nickname;
         String content;
         LocalDateTime createdAt;
     }
