@@ -26,9 +26,9 @@ public class Post {
 
     private String address;
 
-    private Double latitue;
+    private Double latitude;
 
-    private Double logitue;
+    private Double longitude;
 
     private String ISO;
 
