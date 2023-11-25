@@ -43,7 +43,7 @@ public class CommentService {
                 .orElseThrow(() -> BaseException.of(ErrorCode.NO_SUCH_COMMENT_ERROR));
 
         // 찾은 comment의 memberId와 받아온 member의 memberId가 같은지 검증
-        if (findComment.getMember().equals(member)) {
+        if (findComment.getMember().getId().equals(member.getId())) {
             throw BaseException.of(ErrorCode.COMMENT_MEMBER_MISMATCH_ERROR);
         }
 
