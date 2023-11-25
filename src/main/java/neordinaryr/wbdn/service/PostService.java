@@ -8,7 +8,6 @@ import neordinaryr.wbdn.converter.PostConverter;
 import neordinaryr.wbdn.domain.Member;
 import neordinaryr.wbdn.domain.Post;
 import neordinaryr.wbdn.domain.dto.request.PostRequestDto;
-import neordinaryr.wbdn.domain.dto.response.PostListDto.PostListMapDto;
 import neordinaryr.wbdn.global.apiPayload.ErrorCode;
 import neordinaryr.wbdn.global.exception.BaseException;
 import neordinaryr.wbdn.repository.PhotoRepository;
@@ -48,8 +47,11 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    //
-    public List<PostListMapDto> getPostsOnMap(Double currentLat, Double currentLon, Double upperRightLat, Double upperRightLon) {
-        return postRepository.findByLocation(currentLat, currentLon, upperRightLat, upperRightLon);
+//    public List<PostListMapDto> getPostsOnMap(Double currentLat, Double currentLon, Double upperRightLat, Double upperRightLon) {
+//        return postRepository.findByLocation(currentLat, currentLon, upperRightLat, upperRightLon);
+//    }
+
+    public List<Post> getPostsOnMapTemp() {
+        return postRepository.findAll();
     }
 }
