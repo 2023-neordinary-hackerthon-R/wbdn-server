@@ -50,7 +50,7 @@ public class AmazonS3Manager {
 
         String keyName = null;
         if (matcher.find()) {
-            keyName = matcher.group(1);
+            keyName = matcher.group(1).substring(1);
         }
 
         return keyName;
