@@ -1,16 +1,14 @@
 package neordinaryr.wbdn.domain;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,40 +22,25 @@ import neordinaryr.wbdn.domain.common.BaseEntity;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Post")
-@Table(name = "post")
-public class Post extends BaseEntity {
+@Entity(name = "Reply")
+@Table(name = "reply")
+public class Reply extends BaseEntity {
 
     @Id
-    @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reply_id")
     private Long id;
 
     @Lob
-    private String editContents;
-
-    @Lob
-    private String additionalContents;
-
-    @Column(nullable = false, length = 50)
-    private String device;
-
-    private Double latitude;
-
-    private Double longitude;
-
-    private String ISO;
-
-    private String shutterSpeed;
-
-    private String fNumber;
-
-    private LocalDateTime shootingDate;
+    @Column(nullable = false)
+    private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
-    @OneToOne(mappedBy = "post")
-    private Photo photo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
+
 }

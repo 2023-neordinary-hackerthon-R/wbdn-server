@@ -1,6 +1,8 @@
 package neordinaryr.wbdn.domain;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import neordinaryr.wbdn.domain.common.BaseEntity;
 
@@ -14,8 +16,8 @@ import neordinaryr.wbdn.domain.common.BaseEntity;
 public class Comment extends BaseEntity {
 
     @Id
-    @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="comment_id")
     private Long id;
 
     @Lob
@@ -23,6 +25,14 @@ public class Comment extends BaseEntity {
     private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="post_id", referencedColumnName = "post_id")
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id", referencedColumnName = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Reply> replies = new ArrayList<>();
+
 }
