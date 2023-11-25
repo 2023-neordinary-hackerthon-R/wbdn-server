@@ -23,10 +23,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import neordinaryr.wbdn.domain.common.BaseEntity;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @Setter
 @Builder
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Post")
