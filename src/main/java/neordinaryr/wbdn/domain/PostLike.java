@@ -37,4 +37,9 @@ public class PostLike extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
+
+    public PostLike(Post post, Member member) {
+        this.post = post;
+        this.member = member;
+    }
 }

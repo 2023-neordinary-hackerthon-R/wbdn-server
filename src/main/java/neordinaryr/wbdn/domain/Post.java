@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import neordinaryr.wbdn.domain.common.BaseEntity;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -57,6 +58,9 @@ public class Post extends BaseEntity {
     private String fNumber;
 
     private LocalDateTime shootingDate;
+
+    @ColumnDefault("0")
+    private Long likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
