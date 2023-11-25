@@ -107,4 +107,6 @@ public class MemberRestController {
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess("중복되지 않는 닉네임입니다."));
 
     }
+
+
 }
