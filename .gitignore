@@ -38,3 +38,9 @@ out/
 
 ### application.yaml ###
 !**/src/main/resources/application.yaml
+
+# Ignore application.properties
+application.yaml
+
+# Ignore all files named application.properties in any subdirectory
+**/application.yaml
