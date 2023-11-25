@@ -37,7 +37,7 @@ public class ReplyService {
                 .orElseThrow(() -> BaseException.of(ErrorCode.NO_SUCH_REPLY_ERROR));
 
         // 찾은 reply의 memberId와 받아온 member의 memberId가 같은지 검증
-        if (findReply.getMember().getId().equals(member.getId())) {
+        if (findReply.getMember().equals(member)) {
             throw BaseException.of(ErrorCode.REPLY_MEMBER_MISMATCH_ERROR);
         }
 
