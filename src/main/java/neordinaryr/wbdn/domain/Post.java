@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,6 +55,9 @@ public class Post extends BaseEntity {
     private LocalDateTime shootingDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id", referencedColumnName = "member_id")
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
+
+    @OneToOne(mappedBy = "post")
+    private Photo photo;
 }
