@@ -30,7 +30,7 @@ public class BaseResponse<T> {
         return new BaseResponse<>(false, code.getCode(), code.getMessage(), null);
     }
 
-    public static <T> BaseResponse<T> onFailure(BaseCode code, String message) {
-        return new BaseResponse<>(false, code.getCode(), message, null);
+    public static <T> BaseResponse<T> onFailure(BaseCode code, T result) {
+        return new BaseResponse<>(false, code.getCode(), code.getMessage(), result);
     }
 }

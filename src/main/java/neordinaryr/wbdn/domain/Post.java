@@ -1,13 +1,17 @@
 package neordinaryr.wbdn.domain;
 
-import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,6 +55,9 @@ public class Post extends BaseEntity {
     private LocalDateTime shootingDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id", referencedColumnName = "member_id")
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
+
+    @OneToOne(mappedBy = "post")
+    private Photo photo;
 }
