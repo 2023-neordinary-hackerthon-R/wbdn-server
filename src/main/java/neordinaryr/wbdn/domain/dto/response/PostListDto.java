@@ -6,6 +6,9 @@ import java.util.List;
 
 public class PostListDto {
 
+    private PostListDto() {
+    }
+
     @Builder
     @Getter
     @AllArgsConstructor
