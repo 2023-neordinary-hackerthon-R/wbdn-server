@@ -39,4 +39,8 @@ public class Reply extends BaseEntity {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
+
 }

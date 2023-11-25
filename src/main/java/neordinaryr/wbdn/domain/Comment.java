@@ -30,7 +30,4 @@ public class Comment extends BaseEntity {
     @JoinColumn(name="member_id", referencedColumnName = "member_id")
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="reply_id", referencedColumnName = "reply_id")
-    private Reply reply;
 }
