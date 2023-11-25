@@ -1,5 +1,7 @@
 package neordinaryr.wbdn.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.domain.Member;
 import neordinaryr.wbdn.domain.Post;
@@ -8,25 +10,20 @@ import neordinaryr.wbdn.domain.dto.response.PostDetailResDto;
 import neordinaryr.wbdn.domain.dto.response.PostListDto;
 import neordinaryr.wbdn.global.apiPayload.ErrorCode;
 import neordinaryr.wbdn.global.exception.BaseException;
-import neordinaryr.wbdn.repository.MemberRepository;
 import neordinaryr.wbdn.repository.PostLikeRepository;
 import neordinaryr.wbdn.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class PostDetailService {
 
-    private PostRepository postRepository;
-    private PostLikeServcie postLikeServcie;
-    private GeoCodingService geoCodingService;
-    private PostLikeRepository postLikeRepository;
+    private final PostRepository postRepository;
+    private final PostLikeServcie postLikeServcie;
+    private final GeoCodingService geoCodingService;
+    private final PostLikeRepository postLikeRepository;
 
     // 전체 조회
     public PostListDto.PostListResDto findPostAll(Member member) throws BaseException{
@@ -38,11 +35,12 @@ public class PostDetailService {
         if (findPosts == null || findPosts.isEmpty())
             throw BaseException.of(ErrorCode.POST_NOT_OWNER);
         List<PostListDto.GetPostListDto> result = findPosts.stream()
-                .map(p -> {
-                    Long likes = postLikeServcie.likeCount(p.getId());
-                    return new PostListDto.GetPostListDto(p.getId(), p.getMember().getNickname(), p.getPhoto().getPhotoUrl(), likes);
-                })
-                .collect(Collectors.toList());
+                                                           .map(p -> {
+                                                               Long likes = postLikeServcie.likeCount(p.getId());
+                                                               return new PostListDto.GetPostListDto(p.getId(), p.getMember().getNickname(),
+                                                                   p.getPhoto().getPhotoUrl(), likes);
+                                                           })
+                                                           .collect(Collectors.toList());
 
         return new PostListDto.PostListResDto(member.getId(), nickname, result);
     }
