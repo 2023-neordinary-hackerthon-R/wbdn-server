@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.global.apiPayload.ErrorCode;
 import neordinaryr.wbdn.global.exception.BaseException;
@@ -12,8 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
@@ -24,8 +23,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+        HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+        throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader("Authorization");
 
@@ -38,10 +37,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
                 if (memberDetails != null) {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                            new UsernamePasswordAuthenticationToken(memberDetails, "", memberDetails.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(memberDetails, "", memberDetails.getAuthorities());
 
                     SecurityContextHolder.getContext()
-                            .setAuthentication(usernamePasswordAuthenticationToken);
+                                         .setAuthentication(usernamePasswordAuthenticationToken);
                 } else {
                     throw BaseException.of(ErrorCode.MEMBER_NOT_FOUND);
                 }

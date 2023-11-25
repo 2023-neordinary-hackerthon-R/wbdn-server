@@ -7,10 +7,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import neordinaryr.wbdn.domain.Member;
 import neordinaryr.wbdn.domain.dto.response.PostDetailResDto;
 import neordinaryr.wbdn.domain.dto.response.PostLikeResDto;
 import neordinaryr.wbdn.domain.dto.response.PostListDto;
 import neordinaryr.wbdn.global.apiPayload.BaseResponse;
+import neordinaryr.wbdn.security.handler.annotation.ExtractMember;
 import neordinaryr.wbdn.service.PostDetailService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,8 +34,8 @@ public class PostDetailController {
             @ApiResponse(responseCode = "400", description = "bad request operation")
     })
     @GetMapping("/posts")
-    public BaseResponse<PostListDto.PostListResDto> findPostAll() { // 멤버 필요
-        PostListDto.PostListResDto res = postDetailService.findPostAll();
+    public BaseResponse<PostListDto.PostListResDto> findPostAll(@Parameter(hidden = true) @ExtractMember Member member) { // 멤버 필요
+        PostListDto.PostListResDto res = postDetailService.findPostAll(member);
         return BaseResponse.onSuccess(res);
     }
 
@@ -45,8 +47,8 @@ public class PostDetailController {
     })
     @Parameter(name = "postId", description = "post 아이디")
     @GetMapping("/posts/{postId}")
-    public BaseResponse<PostDetailResDto> findPostDetail(@PathVariable Long postId ) { // 멤버, postId 필요
-        PostDetailResDto res = postDetailService.findPostDetail(postId);
+    public BaseResponse<PostDetailResDto> findPostDetail(@PathVariable Long postId, @Parameter(hidden = true) @ExtractMember Member member) { // 멤버, postId 필요
+        PostDetailResDto res = postDetailService.findPostDetail(postId, member);
         return BaseResponse.onSuccess(res);
     }
 }

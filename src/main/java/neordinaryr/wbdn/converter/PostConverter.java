@@ -34,7 +34,6 @@ public class PostConverter {
     }
 
     public static Post toPost(PostRequestDto.CreatePostDto request, Member member) throws IOException {
-
         return Post.builder()
                    .additionalContents(request.getAdditionalContents())
                    .editContents(request.getEditContents())
@@ -64,7 +63,7 @@ public class PostConverter {
 
         return photo;
     }
-    
+
     public static String uploadPostPhoto(MultipartFile photo) throws IOException {
         String keyName = staticAmazonS3Manager.generatePostPhotoKeyName(photo.getOriginalFilename());
         String fileUrl = staticAmazonS3Manager.uploadFile(keyName, photo);
