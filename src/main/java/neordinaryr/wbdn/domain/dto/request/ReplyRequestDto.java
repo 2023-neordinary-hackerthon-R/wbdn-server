@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.Value;
 
 @Value
-public class CommentRequestDto {
+public class ReplyRequestDto {
 
     @Getter
-    public static class SaveCommentDto {
+    public static class SaveReplyDto {
         @NotBlank
         private String contents;
     }
