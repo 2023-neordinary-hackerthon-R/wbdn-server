@@ -9,8 +9,8 @@ import neordinaryr.wbdn.domain.common.BaseEntity;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="Like")
-@Table(name="like")
+@Entity
+@Table(name="post_like")
 public class PostLike extends BaseEntity {
 
     @Id
