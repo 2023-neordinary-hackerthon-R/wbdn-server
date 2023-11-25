@@ -41,4 +41,15 @@ public class MemberRequestDto {
 
     }
 
+
+    @Getter
+    public static class CheckLoginIdDuplicate {
+        private String loginId;
+    }
+
+    @Getter
+    public static class CheckNicknameDuplicate {
+        private String nickname;
+    }
+
 }

@@ -22,6 +22,7 @@ public enum ErrorCode implements BaseCode {
     INVALID_EMAIL_FORMAT(HttpStatus.BAD_REQUEST, "User-001", "이메일 형식이 올바르지 않습니다."),
     INVALID_PASSWORD_PATTERN(HttpStatus.BAD_REQUEST, "User-002", "비밀번호 형식이 올바르지 않습니다."),
     DUPLICATE_LOGIN_ID(HttpStatus.CONFLICT, "User-003", "아이디  중복"),
+    DUPLICATE_NICKNAME(HttpStatus.CONFLICT, "User-005", "닉네임  중복"),
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "User-004", "유저가 존재하지 않습니다."),
 
     //토큰 Authh Error Code
