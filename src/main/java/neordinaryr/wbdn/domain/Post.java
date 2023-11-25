@@ -19,6 +19,7 @@ public class Post {
     private Long post_id;
 
     @Lob
+    @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
