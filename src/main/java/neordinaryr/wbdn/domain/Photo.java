@@ -20,7 +20,7 @@ public class Photo extends BaseEntity {
 
     private String photoUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="post_id", referencedColumnName = "post_id")
     private Post post;
 }
