@@ -28,6 +28,7 @@ public class ReplyConverter {
     public static ReplyResponseDto.GetReplyDto toGetReplyDto(Reply reply) {
         return ReplyResponseDto.GetReplyDto.builder()
                 .replyId(reply.getId())
+                .nickname(reply.getMember().getNickname())
                 .content(reply.getContents())
                 .createdAt(reply.getCreatedAt())
                 .build();

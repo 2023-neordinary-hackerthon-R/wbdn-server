@@ -22,7 +22,6 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
-    private final PostService postService;
 
     @Transactional
     public Comment save(Long postId, CommentRequestDto.SaveCommentDto dto, Member member) {

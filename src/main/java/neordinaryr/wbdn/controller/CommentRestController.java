@@ -49,8 +49,6 @@ public class CommentRestController {
             @ApiResponse(responseCode = "400", description = "댓글 작성 실패")
     })
     @Parameter(name = "postId", description = "게시글 ID", required = true)
-    @Parameter(name = "dto", description = "댓글 작성 정보", required = true,
-            schema = @Schema(implementation = CommentRequestDto.SaveCommentDto.class))
     @PostMapping("/posts/{postId}/comments")
     public BaseResponse<CommentResponseDto.SaveCommentDto> postComment(@PathVariable("postId") Long postId,
                                                                        @RequestBody @Valid CommentRequestDto.SaveCommentDto dto,
@@ -65,8 +63,6 @@ public class CommentRestController {
             @ApiResponse(responseCode = "400", description = "댓글 리스트 조회 실패")
     })
     @Parameter(name = "postId", description = "게시글 ID", required = true)
-    @Parameter(name = "dto", description = "댓글 리스트 조회 정보", required = true,
-            schema = @Schema(implementation = CommentResponseDto.GetCommentsDto.class))
     @GetMapping("/posts/{postId}/comments")
     public BaseResponse<CommentResponseDto.GetCommentsDto> getComments(@PathVariable("postId") Long postId) {
         List<Comment> comments = commentService.findCommentsByPostId(postId);

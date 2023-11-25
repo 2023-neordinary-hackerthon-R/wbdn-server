@@ -24,6 +24,7 @@ public class CommentResponseDto {
     @AllArgsConstructor
     public static class GetCommentDto {
         Long commentId;
+        String nickname;
         String content;
         LocalDateTime createdAt;
     }
