@@ -10,4 +10,6 @@ public class WbdnApplication {
 		SpringApplication.run(WbdnApplication.class, args);
 	}
 
+
+
 }
