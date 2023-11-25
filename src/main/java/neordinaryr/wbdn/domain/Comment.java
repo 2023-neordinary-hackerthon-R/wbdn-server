@@ -1,6 +1,8 @@
 package neordinaryr.wbdn.domain;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import neordinaryr.wbdn.domain.common.BaseEntity;
 
@@ -29,5 +31,8 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id", referencedColumnName = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Reply> replies = new ArrayList<>();
 
 }
