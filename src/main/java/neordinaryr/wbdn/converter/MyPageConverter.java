@@ -17,8 +17,7 @@ public class MyPageConverter {
                 .build();
     }
 
-    public static MyPageResponseDto.GetMyPagePostsDto toGetMyPagePostsDto(Member member) {
-        List<Post> posts = member.getPosts();
+    public static MyPageResponseDto.GetMyPagePostsDto toGetMyPagePostsDto(List<Post> posts) {
         return MyPageResponseDto.GetMyPagePostsDto.builder()
                 .postList(posts.stream()
                         .map(MyPageConverter::toGetMyPagePostDto)
@@ -29,6 +28,7 @@ public class MyPageConverter {
     public static MyPageResponseDto.GetMyPagePostDto toGetMyPagePostDto(Post post) {
         return MyPageResponseDto.GetMyPagePostDto.builder()
                 .postId(post.getId())
+                .nickname(post.getMember().getNickname())
                 .photoUrl(post.getPhoto().getPhotoUrl())
                 .likes(post.getLikes())
                 .build();

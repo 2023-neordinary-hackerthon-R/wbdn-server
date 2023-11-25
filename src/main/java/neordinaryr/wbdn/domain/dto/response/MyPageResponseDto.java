@@ -30,6 +30,7 @@ public class MyPageResponseDto {
     @AllArgsConstructor
     public static class GetMyPagePostDto {
         private Long postId;
+        private String nickname;
         private String photoUrl;
         private Long likes;
     }
