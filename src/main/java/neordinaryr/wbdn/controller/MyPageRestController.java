@@ -25,6 +25,7 @@ public class MyPageRestController {
         return BaseResponse.onSuccess(SuccessCode.SUCCESS_OK, MyPageConverter.toGetMyPageDto(member));
     }
 
+
     @GetMapping("/posts")
     public BaseResponse<MyPageResponseDto.GetMyPagePostsDto> getMyPagePosts(@Parameter(hidden = true) @ExtractMember Member member) {
         List<Post> posts = member.getPosts();
