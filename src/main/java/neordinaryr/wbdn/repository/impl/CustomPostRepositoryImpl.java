@@ -27,7 +27,7 @@ public class CustomPostRepositoryImpl implements CustomPostRepository {
                                                  + "join member m on p.member_id = m.member_id "
                                                  + "join photo as pp on p.post_id = pp.post_id "
                                                  + "where st_distance_sphere(point(:currentLon, :currentLat), point(p.longitude, p.latitude)) <= "
-                                                 + "st_distance_sphere(point(:upperRightLon, :upperRightLat), point(:currentLon, :currentLon))")
+                                                 + "st_distance_sphere(point(:upperRightLon, :upperRightLat), point(:currentLon, :currentLat))")
                                          .setParameter("currentLat", currentLat)
                                          .setParameter("currentLon", currentLon)
                                          .setParameter("upperRightLat", upperRightLon)

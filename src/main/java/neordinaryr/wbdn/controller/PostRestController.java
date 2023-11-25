@@ -62,12 +62,14 @@ public class PostRestController {
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(null));
     }
 
+    @Operation(summary = "게시글 지도 조회 API", description = "지도에서 게시글 조회합니다.")
+    @ApiResponse(responseCode = "200")
     @GetMapping("/maps")
     public ResponseEntity<BaseResponse<List<PostListMapDto>>> getPostsOnMap(
-        @RequestParam(name = "currentLat") Double currentLat,
-        @RequestParam(name = "currentLon") Double currentLon,
-        @RequestParam(name = "upperRightLat") Double upperRightLat,
-        @RequestParam(name = "upperRightLon") Double upperRightLon) {
+        @Parameter(name = "currentLat", description = "현재 위치 위도") @RequestParam(name = "currentLat") Double currentLat,
+        @Parameter(name = "currentLon", description = "현재 위도 경도") @RequestParam(name = "currentLon") Double currentLon,
+        @Parameter(name = "upperRightLat", description = "우상단 위도") @RequestParam(name = "upperRightLat") Double upperRightLat,
+        @Parameter(name = "upperRightLon", description = "우상단 경도") @RequestParam(name = "upperRightLon") Double upperRightLon) {
 
         List<PostListMapDto> result = postService.getPostsOnMap(currentLat, currentLon, upperRightLat, upperRightLon);
 
