@@ -20,7 +20,7 @@ public class Comment extends BaseEntity {
 
     @Lob
     @Column(nullable = false)
-    private String content;
+    private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="post_id", referencedColumnName = "post_id")

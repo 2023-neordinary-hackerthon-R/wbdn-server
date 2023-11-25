@@ -33,7 +33,7 @@ public class Reply extends BaseEntity {
 
     @Lob
     @Column(nullable = false)
-    private String content;
+    private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
