@@ -44,6 +44,6 @@ public class PostLikeServcie {
         Long currentLike = post.getLikes();
         post.setLikes(currentLike + 1);
 
-        return null;
+        return new PostLikeResDto(member.getId(), postId);
     }
 }
