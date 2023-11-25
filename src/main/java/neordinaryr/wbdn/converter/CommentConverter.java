@@ -28,6 +28,7 @@ public class CommentConverter {
     public static CommentResponseDto.GetCommentDto toGetCommentDto(Comment comment) {
         return CommentResponseDto.GetCommentDto.builder()
                 .commentId(comment.getId())
+                .nickname(comment.getMember().getNickname())
                 .content(comment.getContents())
                 .createdAt(comment.getCreatedAt())
                 .build();
