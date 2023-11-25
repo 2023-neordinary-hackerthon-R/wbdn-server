@@ -1,16 +1,15 @@
 package neordinaryr.wbdn.security;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.domain.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @RequiredArgsConstructor
@@ -24,8 +23,8 @@ public class CustomMemberDetails implements UserDetails {
         roles.add("ROLE_USER");
 
         return roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList());
     }
 
     @Override
@@ -35,7 +34,7 @@ public class CustomMemberDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return member.getNickname();
+        return member.getId().toString();
     }
 
     @Override
