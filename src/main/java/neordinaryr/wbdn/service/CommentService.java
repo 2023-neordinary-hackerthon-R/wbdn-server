@@ -1,6 +1,7 @@
 package neordinaryr.wbdn.service;
 
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.converter.CommentConverter;
 import neordinaryr.wbdn.domain.Comment;
@@ -20,15 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-//    private final MemberService memberService;
 //    private final PostService postService;
 
     @Transactional
     public Comment save(CommentRequestDto.SaveCommentDto dto, Member member) {
         Comment comment = CommentConverter.toComment(dto);
-
-        // TODO: MemberService에서 Member를 가져오는 로직을 추가해야 함
-        // Member member = memberService.findById(memberId);
         comment.setMember(member);
 
         // TODO: PostService에서 Post를 가져오는 로직을 추가해야 함
@@ -40,10 +37,16 @@ public class CommentService {
     }
 
     @Transactional
-    public void delete(CommentRequestDto.DeleteCommentDto dto) {
+    public void delete(CommentRequestDto.DeleteCommentDto dto, Member member) {
         Long commentId = dto.getCommentId();
         Comment findComment = commentRepository.findById(commentId)
                 .orElseThrow(() -> BaseException.of(ErrorCode.NO_SUCH_COMMENT_ERROR));
+
+        // 찾은 comment의 memberId와 받아온 member의 memberId가 같은지 검증
+        if (findComment.getMember().equals(member)) {
+            throw BaseException.of(ErrorCode.COMMENT_MEMBER_MISMATCH_ERROR);
+        }
+
         commentRepository.delete(findComment);
     }
 
