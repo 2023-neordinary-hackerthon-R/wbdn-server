@@ -24,12 +24,11 @@ public class CommentService {
 //    private final PostService postService;
 
     @Transactional
-    public Comment save(CommentRequestDto.SaveCommentDto dto, Long memberId) {
+    public Comment save(CommentRequestDto.SaveCommentDto dto, Member member) {
         Comment comment = CommentConverter.toComment(dto);
 
         // TODO: MemberService에서 Member를 가져오는 로직을 추가해야 함
         // Member member = memberService.findById(memberId);
-        Member member = new Member();
         comment.setMember(member);
 
         // TODO: PostService에서 Post를 가져오는 로직을 추가해야 함
@@ -41,7 +40,7 @@ public class CommentService {
     }
 
     @Transactional
-    public void delete(CommentRequestDto.DeleteCommentDto dto, Long memberId) {
+    public void delete(CommentRequestDto.DeleteCommentDto dto) {
         Long commentId = dto.getCommentId();
         Comment findComment = commentRepository.findById(commentId)
                 .orElseThrow(() -> BaseException.of(ErrorCode.NO_SUCH_COMMENT_ERROR));
