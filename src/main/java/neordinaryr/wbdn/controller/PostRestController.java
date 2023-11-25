@@ -2,7 +2,6 @@ package neordinaryr.wbdn.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +15,8 @@ import neordinaryr.wbdn.global.apiPayload.SuccessCode;
 import neordinaryr.wbdn.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -29,20 +30,27 @@ public class PostRestController {
 
     private final PostService postService;
 
-    @Operation(summary = "게시글 등록 API", description = "레시피를 등록합니다. 사진은 무조건 포함되어야 합니다.")
+    @Operation(summary = "게시글 등록 API", description = "게시글을 등록합니다. 사진은 무조건 포함되어야 합니다.")
     @ApiResponse(responseCode = "201")
-    @Parameters({
-        @Parameter(name = "member", hidden = true)
-    })
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<BaseResponse<PostResponseDto.CreatePostDto>> createPost(
         @RequestPart(value = "contents") PostRequestDto.CreatePostDto request,
         @RequestPart(value = "photo") MultipartFile photo,
-        Member member) throws IOException {
-        
-        Post post = this.postService.createPost(request, photo, member);
+        @Parameter(hidden = true) Member member) throws IOException {
+
+        Post post = postService.createPost(request, photo, member);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                              .body(BaseResponse.onSuccess(SuccessCode.SUCCESS_CREATED, PostConverter.toCreatePostDto(post)));
+    }
+
+    @Operation(summary = "게시글 삭제 API", description = "게시글을 삭제합니다.")
+    @ApiResponse(responseCode = "200")
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<BaseResponse<Void>> deletePost(@Parameter(name = "postId", description = "삭제할 게시글 id") @PathVariable Long postId,
+        @Parameter(hidden = true) Member member) {
+        postService.deletePost(postId, member);
+
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(null));
     }
 }

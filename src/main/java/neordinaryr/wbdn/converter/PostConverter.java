@@ -34,20 +34,19 @@ public class PostConverter {
     }
 
     public static Post toPost(PostRequestDto.CreatePostDto request, Member member) throws IOException {
-        Post post = Post.builder()
-                        .additionalContents(request.getAdditionalContents())
-                        .editContents(request.getEditContents())
-                        .ISO(request.getISO())
-                        .fNumber(request.getFNumber())
-                        .device(request.getDevice())
-                        .latitude(request.getLatitude())
-                        .longitude(request.getLongitude())
-                        .shutterSpeed(request.getShutterSpeed())
-                        .shootingDate(request.getShootingDate())
-                        .member(member)
-                        .build();
 
-        return post;
+        return Post.builder()
+                   .additionalContents(request.getAdditionalContents())
+                   .editContents(request.getEditContents())
+                   .ISO(request.getISO())
+                   .fNumber(request.getFNumber())
+                   .device(request.getDevice())
+                   .latitude(request.getLatitude())
+                   .longitude(request.getLongitude())
+                   .shutterSpeed(request.getShutterSpeed())
+                   .shootingDate(request.getShootingDate())
+                   .member(member)
+                   .build();
     }
 
     public static Photo toPhoto(Post post, MultipartFile postPhoto) throws IOException {
@@ -65,7 +64,7 @@ public class PostConverter {
 
         return photo;
     }
-
+    
     public static String uploadPostPhoto(MultipartFile photo) throws IOException {
         String keyName = staticAmazonS3Manager.generatePostPhotoKeyName(photo.getOriginalFilename());
         String fileUrl = staticAmazonS3Manager.uploadFile(keyName, photo);
