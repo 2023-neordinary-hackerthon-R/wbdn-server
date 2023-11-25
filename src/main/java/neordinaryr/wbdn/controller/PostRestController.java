@@ -6,11 +6,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.converter.PostConverter;
 import neordinaryr.wbdn.domain.Member;
 import neordinaryr.wbdn.domain.Post;
 import neordinaryr.wbdn.domain.dto.request.PostRequestDto;
+import neordinaryr.wbdn.domain.dto.response.PostListDto.PostListMapDto;
 import neordinaryr.wbdn.domain.dto.response.PostResponseDto;
 import neordinaryr.wbdn.global.apiPayload.BaseResponse;
 import neordinaryr.wbdn.global.apiPayload.SuccessCode;
@@ -20,9 +22,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,5 +60,17 @@ public class PostRestController {
         postService.deletePost(postId, member);
 
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(null));
+    }
+
+    @GetMapping("/maps")
+    public ResponseEntity<BaseResponse<List<PostListMapDto>>> getPostsOnMap(
+        @RequestParam(name = "currentLat") Double currentLat,
+        @RequestParam(name = "currentLon") Double currentLon,
+        @RequestParam(name = "upperRightLat") Double upperRightLat,
+        @RequestParam(name = "upperRightLon") Double upperRightLon) {
+
+        List<PostListMapDto> result = postService.getPostsOnMap(currentLat, currentLon, upperRightLat, upperRightLon);
+
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.onSuccess(result));
     }
 }
