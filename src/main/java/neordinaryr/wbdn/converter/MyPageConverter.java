@@ -1,6 +1,8 @@
 package neordinaryr.wbdn.converter;
 
+import java.util.List;
 import neordinaryr.wbdn.domain.Member;
+import neordinaryr.wbdn.domain.Post;
 import neordinaryr.wbdn.domain.dto.response.MyPageResponseDto;
 
 public class MyPageConverter {
@@ -12,6 +14,23 @@ public class MyPageConverter {
         return MyPageResponseDto.GetMyPageDto.builder()
                 .memberId(member.getId())
                 .nickname(member.getNickname())
+                .build();
+    }
+
+    public static MyPageResponseDto.GetMyPagePostsDto toGetMyPagePostsDto(List<Post> posts) {
+        return MyPageResponseDto.GetMyPagePostsDto.builder()
+                .postList(posts.stream()
+                        .map(MyPageConverter::toGetMyPagePostDto)
+                        .toList())
+                .build();
+    }
+
+    public static MyPageResponseDto.GetMyPagePostDto toGetMyPagePostDto(Post post) {
+        return MyPageResponseDto.GetMyPagePostDto.builder()
+                .postId(post.getId())
+                .nickname(post.getMember().getNickname())
+                .photoUrl(post.getPhoto().getPhotoUrl())
+                .likes(post.getLikes())
                 .build();
     }
 
