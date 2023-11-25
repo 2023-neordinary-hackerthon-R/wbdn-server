@@ -1,12 +1,14 @@
 package neordinaryr.wbdn.service;
 
 import java.io.IOException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import neordinaryr.wbdn.aws.s3.AmazonS3Manager;
 import neordinaryr.wbdn.converter.PostConverter;
 import neordinaryr.wbdn.domain.Member;
 import neordinaryr.wbdn.domain.Post;
 import neordinaryr.wbdn.domain.dto.request.PostRequestDto;
+import neordinaryr.wbdn.domain.dto.response.PostListDto.PostListMapDto;
 import neordinaryr.wbdn.global.apiPayload.ErrorCode;
 import neordinaryr.wbdn.global.exception.BaseException;
 import neordinaryr.wbdn.repository.PhotoRepository;
@@ -44,5 +46,10 @@ public class PostService {
         amazonS3Manager.deleteFile(keyName);
 
         postRepository.delete(post);
+    }
+
+    //
+    public List<PostListMapDto> getPostsOnMap(Double currentLat, Double currentLon, Double upperRightLat, Double upperRightLon) {
+        return postRepository.findByLocation(currentLat, currentLon, upperRightLat, upperRightLon);
     }
 }
